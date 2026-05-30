@@ -16,8 +16,7 @@ build/
 dist/
 
 # Environment
-.env.local
-.env*.local
+# .env.local (已提交到仓库)
 
 # IDE
 .idea/
