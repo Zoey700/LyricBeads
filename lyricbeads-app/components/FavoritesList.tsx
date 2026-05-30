@@ -35,7 +35,7 @@ export default function FavoritesList({ userId }: FavoritesListProps) {
 
       if (error) throw error
 
-      const postIds = (favoritesData || []).map(f => f.post_id)
+      const postIds = (favoritesData || []).map((f: any) => f.post_id)
 
       if (postIds.length === 0) {
         setPosts([])
@@ -56,7 +56,7 @@ export default function FavoritesList({ userId }: FavoritesListProps) {
         .in('post_id', postIds)
 
       const likeCounts: Record<string, number> = {}
-      allLikes?.forEach(like => {
+      allLikes?.forEach((like: any) => {
         likeCounts[like.post_id] = (likeCounts[like.post_id] || 0) + 1
       })
 
@@ -155,7 +155,7 @@ export default function FavoritesList({ userId }: FavoritesListProps) {
     supabase.from('browsing_history').insert({
       post_id: postId,
       user_id: userId,
-    }).then(({ error }) => {
+    }).then(({ error }: any) => {
       if (error) console.warn('插入浏览记录失败:', error)
     })
     router.push(`/post/${postId}`)

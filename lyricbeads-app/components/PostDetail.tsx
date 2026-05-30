@@ -103,7 +103,7 @@ export default function PostDetail({ postId, userId }: PostDetailProps) {
       supabase.from('browsing_history').insert({
         post_id: postId,
         user_id: userId,
-      }).then(({ error }) => {
+      }).then(({ error }: any) => {
         if (error) console.warn('插入浏览记录失败:', error)
       })
     } catch (err) {

@@ -75,18 +75,18 @@ export default function CommunityFeed({ userId }: CommunityFeedProps) {
         .select('post_id')
         .eq('user_id', userId)
 
-      const likedPostIds = new Set(userLikes?.map(l => l.post_id) || [])
-      const favoritedPostIds = new Set(userFavorites?.map(f => f.post_id) || [])
+      const likedPostIds = new Set(userLikes?.map((l: any) => l.post_id) || [])
+      const favoritedPostIds = new Set(userFavorites?.map((f: any) => f.post_id) || [])
 
       // 获取所有点赞数
-      const postIds = (postsData || []).map(p => p.id)
+      const postIds = (postsData || []).map((p: any) => p.id)
       const { data: allLikes } = await supabase
         .from('likes')
         .select('post_id')
         .in('post_id', postIds)
 
       const likeCounts: Record<string, number> = {}
-      allLikes?.forEach(like => {
+      allLikes?.forEach((like: any) => {
         likeCounts[like.post_id] = (likeCounts[like.post_id] || 0) + 1
       })
 
@@ -99,7 +99,7 @@ export default function CommunityFeed({ userId }: CommunityFeedProps) {
       }))
 
       if (filter === 'popular') {
-        posts.sort((a, b) => (b.likes_count || 0) - (a.likes_count || 0))
+        posts.sort((a: any, b: any) => (b.likes_count || 0) - (a.likes_count || 0))
       }
 
       setPosts(posts)
@@ -212,7 +212,7 @@ export default function CommunityFeed({ userId }: CommunityFeedProps) {
     supabase.from('browsing_history').insert({
       post_id: postId,
       user_id: userId,
-    }).then(({ error }) => {
+    }).then(({ error }: any) => {
       if (error) console.warn('插入浏览记录失败:', error)
     })
     router.push(`/post/${postId}`)

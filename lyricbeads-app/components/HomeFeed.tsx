@@ -112,18 +112,18 @@ export default function HomeFeed({ userId }: HomeFeedProps) {
         .select('post_id')
         .eq('user_id', userId)
 
-      const likedPostIds = new Set(userLikes?.map(l => l.post_id) || [])
-      const favoritedPostIds = new Set(userFavorites?.map(f => f.post_id) || [])
+      const likedPostIds = new Set(userLikes?.map((l: any) => l.post_id) || [])
+      const favoritedPostIds = new Set(userFavorites?.map((f: any) => f.post_id) || [])
 
       // 获取浏览量统计（使用浏览历史作为点击量指标）
-      const postIds = postsData.map(p => p.id)
+      const postIds = postsData.map((p: any) => p.id)
       const { data: browsingData } = await supabase
         .from('browsing_history')
         .select('post_id')
         .in('post_id', postIds)
 
       const viewCounts: Record<string, number> = {}
-      browsingData?.forEach(view => {
+      browsingData?.forEach((view: any) => {
         viewCounts[view.post_id] = (viewCounts[view.post_id] || 0) + 1
       })
 
@@ -134,7 +134,7 @@ export default function HomeFeed({ userId }: HomeFeedProps) {
         .in('post_id', postIds)
 
       const likeCounts: Record<string, number> = {}
-      allLikes?.forEach(like => {
+      allLikes?.forEach((like: any) => {
         likeCounts[like.post_id] = (likeCounts[like.post_id] || 0) + 1
       })
 
@@ -151,7 +151,7 @@ export default function HomeFeed({ userId }: HomeFeedProps) {
       // 按日期分组
       const groupedByDate = new Map<string, Post[]>()
 
-      postsWithStats.forEach(post => {
+      postsWithStats.forEach((post: any) => {
         const date = new Date(post.created_at)
         const dateKey = date.toISOString().split('T')[0] // YYYY-MM-DD
 
@@ -240,7 +240,7 @@ export default function HomeFeed({ userId }: HomeFeedProps) {
     supabase.from('browsing_history').insert({
       post_id: postId,
       user_id: userId,
-    }).then(({ error }) => {
+    }).then(({ error }: any) => {
       if (error) console.warn('插入浏览记录失败:', error)
     })
     router.push(`/post/${postId}`)

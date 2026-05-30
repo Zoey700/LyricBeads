@@ -15,8 +15,8 @@ export default function SettingsPage() {
   const { theme, toggleTheme, mounted } = useTheme()
 
   useEffect(() => {
-    supabase.auth.getUser().then(({ data: { user } }) => {
-      setUser(user)
+    supabase.auth.getUser().then((result: any) => {
+      setUser(result.data.user)
     })
   }, [supabase])
 

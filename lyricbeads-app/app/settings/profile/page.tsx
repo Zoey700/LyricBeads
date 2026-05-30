@@ -16,10 +16,11 @@ export default function ProfileSettingsPage() {
   const supabase = createClient()
 
   useEffect(() => {
-    supabase.auth.getUser().then(({ data: { user } }) => {
-      if (user) {
-        setUser(user)
-        setName(user.user_metadata?.name || '')
+    supabase.auth.getUser().then((result: any) => {
+      const userData = result.data.user
+      if (userData) {
+        setUser(userData)
+        setName(userData.user_metadata?.name || '')
       }
     })
   }, [supabase])

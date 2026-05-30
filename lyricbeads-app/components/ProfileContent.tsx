@@ -61,14 +61,14 @@ function ProfileTabContent({ userId, user, activeTab }: { userId: string; user: 
           .eq('user_id', userId)
           .order('created_at', { ascending: false })
           .limit(50)
-        postIds = data?.map(h => h.post_id) || []
+        postIds = data?.map((h: any) => h.post_id) || []
       } else if (activeTab === 'likes') {
         const { data } = await supabase
           .from('likes')
           .select('post_id')
           .eq('user_id', userId)
           .order('created_at', { ascending: false })
-        postIds = data?.map(l => l.post_id) || []
+        postIds = data?.map((l: any) => l.post_id) || []
       } else if (activeTab === 'myPosts') {
         const { data } = await supabase
           .from('posts')
@@ -82,7 +82,7 @@ function ProfileTabContent({ userId, user, activeTab }: { userId: string; user: 
           .select('post_id')
           .eq('user_id', userId)
           .order('created_at', { ascending: false })
-        postIds = data?.map(f => f.post_id) || []
+        postIds = data?.map((f: any) => f.post_id) || []
       }
 
       // 如果需要通过 ID 获取帖子
@@ -102,7 +102,7 @@ function ProfileTabContent({ userId, user, activeTab }: { userId: string; user: 
         .in('post_id', allPostIds)
 
       const likeCounts: Record<string, number> = {}
-      allLikes?.forEach(like => {
+      allLikes?.forEach((like: any) => {
         likeCounts[like.post_id] = (likeCounts[like.post_id] || 0) + 1
       })
 
